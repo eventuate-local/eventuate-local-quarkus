@@ -6,18 +6,19 @@ import io.eventuate.javaclient.domain.EventHandlerProcessorEventHandlerContextRe
 import io.eventuate.javaclient.domain.EventHandlerProcessorEventHandlerContextReturningVoid;
 
 import javax.enterprise.inject.Instance;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 @Singleton
 public class EventuateJavaClientDomainCrudConfiguration {
 
   @Singleton
-  public EventHandlerProcessor eventHandlerProcessorEventHandlerContextReturningVoid(Instance<EventuateAggregateStoreCrud> aggregateStore) {
+  public EventHandlerProcessor eventHandlerProcessorEventHandlerContextReturningVoid(@Named("EventuateAggregateStoreCrud") Instance<EventuateAggregateStoreCrud> aggregateStore) {
     return new EventHandlerProcessorEventHandlerContextReturningVoid(aggregateStore.get());
   }
 
   @Singleton
-  public EventHandlerProcessor eventHandlerProcessorEventHandlerContextReturningCompletableFuture(Instance<EventuateAggregateStoreCrud> aggregateStore) {
+  public EventHandlerProcessor eventHandlerProcessorEventHandlerContextReturningCompletableFuture(@Named("EventuateAggregateStoreCrud") Instance<EventuateAggregateStoreCrud> aggregateStore) {
     return new EventHandlerProcessorEventHandlerContextReturningCompletableFuture(aggregateStore.get());
   }
 

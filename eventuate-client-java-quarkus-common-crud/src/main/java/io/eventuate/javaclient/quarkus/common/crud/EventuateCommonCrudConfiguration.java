@@ -1,11 +1,17 @@
 package io.eventuate.javaclient.quarkus.common.crud;
 
-import io.eventuate.*;
+import io.eventuate.CompositeMissingApplyEventMethodStrategy;
+import io.eventuate.EventuateAggregateStoreCrud;
+import io.eventuate.MissingApplyEventMethodStrategy;
+import io.eventuate.SnapshotManager;
+import io.eventuate.SnapshotManagerImpl;
+import io.eventuate.SnapshotStrategy;
+import io.eventuate.javaclient.commonimpl.common.schema.EventuateEventSchemaManager;
 import io.eventuate.javaclient.commonimpl.crud.AggregateCrud;
 import io.eventuate.javaclient.commonimpl.crud.EventuateAggregateStoreCrudImpl;
-import io.eventuate.javaclient.commonimpl.common.schema.EventuateEventSchemaManager;
 
 import javax.enterprise.inject.Instance;
+import javax.inject.Named;
 import javax.inject.Singleton;
 import java.util.stream.Collectors;
 
@@ -23,35 +29,36 @@ public class EventuateCommonCrudConfiguration {
 
   @Singleton
   public CompositeMissingApplyEventMethodStrategy compositeMissingApplyEventMethodStrategy(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies) {
-    return new CompositeMissingApplyEventMethodStrategy(convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies));
+    //TODO: Use missingApplyEventMethodStrategies and fix StackOverflowError
+    return new CompositeMissingApplyEventMethodStrategy(new MissingApplyEventMethodStrategy[0]/*convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies)*/);
   }
 
   @Singleton
-  public EventuateAggregateStoreCrud eventuateAggregateStoreCrud(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies,
+  public @Named("EventuateAggregateStoreCrud") EventuateAggregateStoreCrud eventuateAggregateStoreCrud(Instance<CompositeMissingApplyEventMethodStrategy> missingApplyEventMethodStrategies,
                                                          Instance<AggregateCrud> aggregateCrud,
                                                          SnapshotManager snapshotManager,
                                                          EventuateEventSchemaManager eventuateEventSchemaManager) {
     return new EventuateAggregateStoreCrudImpl(aggregateCrud.get(),
             snapshotManager,
-            new CompositeMissingApplyEventMethodStrategy(convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies)),
+            missingApplyEventMethodStrategies.get(),
             eventuateEventSchemaManager
     );
   }
 
   @Singleton
-  public io.eventuate.sync.EventuateAggregateStoreCrud syncEventuateAggregateStoreCrud(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies,
-                                                                           Instance<io.eventuate.javaclient.commonimpl.crud.sync.AggregateCrud> aggregateCrud,
-                                                                           SnapshotManager snapshotManager) {
+  public @Named("syncEventuateAggregateStoreCrud") io.eventuate.sync.EventuateAggregateStoreCrud syncEventuateAggregateStoreCrud(Instance<CompositeMissingApplyEventMethodStrategy> missingApplyEventMethodStrategies,
+                                                                                                                             Instance<io.eventuate.javaclient.commonimpl.crud.sync.AggregateCrud> aggregateCrud,
+                                                                                                                             SnapshotManager snapshotManager) {
 
     io.eventuate.sync.EventuateAggregateStoreCrud eventuateAggregateStoreCrud =
             new io.eventuate.javaclient.commonimpl.crud.sync.EventuateAggregateStoreCrudImpl(aggregateCrud.get(),
             snapshotManager,
-            new CompositeMissingApplyEventMethodStrategy(convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies)));
+            missingApplyEventMethodStrategies.get());
 
     return eventuateAggregateStoreCrud;
   }
 
-  private MissingApplyEventMethodStrategy[] convertMissingApplyEventMethodStrategyInstanceToArray(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies) {
-    return missingApplyEventMethodStrategies.stream().collect(Collectors.toList()).toArray(new MissingApplyEventMethodStrategy[] {});
+  private static MissingApplyEventMethodStrategy[] convertMissingApplyEventMethodStrategyInstanceToArray(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies) {
+    return missingApplyEventMethodStrategies.stream().collect(Collectors.toList()).toArray(new MissingApplyEventMethodStrategy[0]);
   }
 }

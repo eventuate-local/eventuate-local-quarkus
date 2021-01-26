@@ -13,6 +13,7 @@ import io.eventuate.javaclient.jdbc.EventuateJdbcAccessImpl;
 
 import javax.annotation.Priority;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.Instance;
 import javax.inject.Singleton;
 
 @Singleton
@@ -40,7 +41,7 @@ public class EmbeddedTestAggregateStoreCrudConfiguration {
   }
 
   @Singleton
-  public AggregateCrud aggregateCrud(io.eventuate.javaclient.commonimpl.crud.sync.AggregateCrud aggregateCrud) {
-    return new SyncToAsyncAggregateCrudAdapter(aggregateCrud);
+  public AggregateCrud aggregateCrud(Instance<io.eventuate.javaclient.commonimpl.crud.sync.AggregateCrud> aggregateCrud) {
+    return new SyncToAsyncAggregateCrudAdapter(aggregateCrud.get());
   }
 }
