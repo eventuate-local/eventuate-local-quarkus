@@ -1,0 +1,8 @@
+plugins {
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+dependencies {
+    compile project(":eventuate-client-java-quarkus-events")
+    compile project(":eventuate-client-java-quarkus-crud")
+}
