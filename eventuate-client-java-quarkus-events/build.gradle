@@ -1,0 +1,18 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+apply plugin: PublicModulePlugin
+
+dependencies {
+    compile "io.eventuate.local.java:eventuate-client-java:$eventuateLocalVersion"
+    compile "io.eventuate.local.java:eventuate-client-java-event-handling:$eventuateLocalVersion"
+    compile "io.eventuate.local.java:eventuate-client-java-event-dispatching:$eventuateLocalVersion"
+
+    testCompile 'io.quarkus:quarkus-junit5'
+}
+
+test {
+    useJUnitPlatform()
+}

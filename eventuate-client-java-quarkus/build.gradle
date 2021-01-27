@@ -1,0 +1,4 @@
+dependencies {
+    compile project(":eventuate-client-java-quarkus-events")
+    compile project(":eventuate-client-java-quarkus-crud")
+}

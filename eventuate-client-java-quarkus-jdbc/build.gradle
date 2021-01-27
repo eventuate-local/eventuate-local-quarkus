@@ -1,0 +1,22 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+dependencies {
+    compile project(":eventuate-client-java-quarkus-common")
+    compile project(":eventuate-client-java-quarkus")
+
+    compile "io.eventuate.local.java:eventuate-client-java-jdbc:$eventuateLocalVersion"
+    compile "io.eventuate.local.java:eventuate-client-java-jdbc-common-tests:$eventuateLocalVersion"
+
+    compile "io.eventuate.common:eventuate-common-quarkus-in-memory-database:$eventuateCommonQuarkusVersion"
+    compile "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
+    compile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+
+    testCompile 'io.quarkus:quarkus-junit5'
+}
+
+test {
+    useJUnitPlatform()
+}
