@@ -1,0 +1,16 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+apply plugin: PrivateModulePlugin
+
+dependencies {
+    compile project(":eventuate-client-java-quarkus-common-crud")
+
+    compile "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
+    compile "io.eventuate.local.java:eventuate-local-java-crud:$eventuateLocalVersion"
+
+    compile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+    compile "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
+}

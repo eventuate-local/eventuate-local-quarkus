@@ -1,0 +1,17 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+
+apply plugin: PrivateModulePlugin
+
+dependencies {
+    compile "io.eventuate.local.java:eventuate-local-java-events:$eventuateLocalVersion"
+    compile "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
+
+    compile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-common:$eventuateMessagingKafkaQuarkusVersion"
+    compile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-consumer:$eventuateMessagingKafkaQuarkusVersion"
+
+    compile project(":eventuate-client-java-quarkus-common-events")
+}

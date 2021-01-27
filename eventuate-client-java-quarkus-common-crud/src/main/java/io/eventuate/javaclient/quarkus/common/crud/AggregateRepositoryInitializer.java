@@ -22,7 +22,7 @@ public class AggregateRepositoryInitializer {
 
   @PostConstruct
   public void setMissingStrategies() {
-    aggregateRepositories.stream().forEach(aggregateRepository -> aggregateRepository.setMissingApplyEventMethodStrategy(strategies));
-    syncAggregateRepositories.stream().forEach(aggregateRepository -> aggregateRepository.setMissingApplyEventMethodStrategy(strategies));
+    aggregateRepositories.stream().forEach(aggregateRepository -> aggregateRepository.setMissingApplyEventMethodStrategy(strategies.toMissingApplyEventMethodStrategy()));
+    syncAggregateRepositories.stream().forEach(aggregateRepository -> aggregateRepository.setMissingApplyEventMethodStrategy(strategies.toMissingApplyEventMethodStrategy()));
   }
 }

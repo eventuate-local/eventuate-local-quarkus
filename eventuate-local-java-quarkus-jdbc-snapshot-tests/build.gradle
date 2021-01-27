@@ -1,0 +1,22 @@
+plugins {
+    id "io.quarkus" version "${quarkusVersion}"
+    id 'org.kordamp.gradle.jandex' version '0.6.0'
+}
+
+apply plugin: PrivateModulePlugin
+
+dependencies {
+    testCompile project(":eventuate-local-java-quarkus-jdbc-tests-common")
+    testCompile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+    testCompile 'io.quarkus:quarkus-jdbc-mysql'
+    testCompile 'io.quarkus:quarkus-agroal'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+test {
+    forkEvery 1
+}
+

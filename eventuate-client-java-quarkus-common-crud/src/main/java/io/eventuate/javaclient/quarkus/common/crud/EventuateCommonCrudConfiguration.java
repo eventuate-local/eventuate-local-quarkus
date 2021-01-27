@@ -29,8 +29,7 @@ public class EventuateCommonCrudConfiguration {
 
   @Singleton
   public CompositeMissingApplyEventMethodStrategy compositeMissingApplyEventMethodStrategy(Instance<MissingApplyEventMethodStrategy> missingApplyEventMethodStrategies) {
-    //TODO: Use missingApplyEventMethodStrategies and fix StackOverflowError
-    return new CompositeMissingApplyEventMethodStrategy(new MissingApplyEventMethodStrategy[0]/*convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies)*/);
+    return new CompositeMissingApplyEventMethodStrategy(convertMissingApplyEventMethodStrategyInstanceToArray(missingApplyEventMethodStrategies));
   }
 
   @Singleton
@@ -40,7 +39,7 @@ public class EventuateCommonCrudConfiguration {
                                                          EventuateEventSchemaManager eventuateEventSchemaManager) {
     return new EventuateAggregateStoreCrudImpl(aggregateCrud.get(),
             snapshotManager,
-            missingApplyEventMethodStrategies.get(),
+            missingApplyEventMethodStrategies.get().toMissingApplyEventMethodStrategy(),
             eventuateEventSchemaManager
     );
   }
@@ -53,7 +52,7 @@ public class EventuateCommonCrudConfiguration {
     io.eventuate.sync.EventuateAggregateStoreCrud eventuateAggregateStoreCrud =
             new io.eventuate.javaclient.commonimpl.crud.sync.EventuateAggregateStoreCrudImpl(aggregateCrud.get(),
             snapshotManager,
-            missingApplyEventMethodStrategies.get());
+            missingApplyEventMethodStrategies.get().toMissingApplyEventMethodStrategy());
 
     return eventuateAggregateStoreCrud;
   }

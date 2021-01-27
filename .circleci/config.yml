@@ -7,13 +7,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - eventuate-local-java-quarkus-{{ checksum "gradle.properties" }}
+            - eventuate-local-java-quarkus-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
             - eventuate-local-java-quarkus-
       - run: TERM=dumb ./gradlew testClasses aggregateJavaDocs
       - save_cache:
           paths:
             - ~/.gradle
-          key: eventuate-local-java-quarkus-{{ checksum "gradle.properties" }}
+          key: eventuate-local-java-quarkus-{{ checksum "gradle.properties" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
       - run: TERM=dumb ./scripts/build-and-test-all.sh
       - run:
           name: Publish artifacts
