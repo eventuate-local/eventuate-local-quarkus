@@ -3,11 +3,10 @@
 set -e
 
 export EVENTUATE_EVENT_TRACKER_ITERATIONS=160
-export EVENTUATEDATABASE=mysql
 
-docker="./gradlew mysqlCompose"
+docker="./gradlew ${database}Compose"
 
-./gradlew $* testClasses
+./gradlew $* testClasses -Dquarkus.profile=${QUARKUS_PROFILE} -Dquarkus.test.profile=${QUARKUS_PROFILE}
 
 ${docker}Down
 ${docker}Up

@@ -6,6 +6,7 @@ import io.eventuate.common.jdbc.EventuateCommonJdbcOperations;
 import io.eventuate.common.jdbc.EventuateJdbcStatementExecutor;
 import io.eventuate.common.jdbc.EventuateSchema;
 import io.eventuate.common.jdbc.EventuateTransactionTemplate;
+import io.eventuate.common.jdbc.sqldialect.SqlDialectSelector;
 import io.eventuate.javaclient.commonimpl.crud.AggregateCrud;
 import io.eventuate.javaclient.commonimpl.crud.adapters.SyncToAsyncAggregateCrudAdapter;
 import io.eventuate.javaclient.commonimpl.events.AggregateEvents;
@@ -34,12 +35,15 @@ public class EmbeddedTestAggregateStoreConfiguration {
                                                  EventuateTransactionTemplate eventuateTransactionTemplate,
                                                  EventuateJdbcStatementExecutor eventuateJdbcStatementExecutor,
                                                  EventuateCommonJdbcOperations eventuateCommonJdbcOperations,
-                                                 EventuateSchema eventuateSchema) {
+                                                 EventuateSchema eventuateSchema,
+                                                 SqlDialectSelector sqlDialectSelector,
+                                                 @ConfigProperty(name = "eventuateDatabase") String dbName) {
 
     return new EventuateJdbcAccessImpl(idGenerator,
             eventuateTransactionTemplate,
             eventuateJdbcStatementExecutor,
             eventuateCommonJdbcOperations,
+            sqlDialectSelector.getDialect(dbName, Optional.empty()),
             eventuateSchema);
   }
 
