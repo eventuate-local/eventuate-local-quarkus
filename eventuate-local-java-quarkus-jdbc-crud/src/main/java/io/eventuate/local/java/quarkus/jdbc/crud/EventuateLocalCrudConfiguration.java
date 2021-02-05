@@ -4,20 +4,16 @@ import io.eventuate.common.id.IdGenerator;
 import io.eventuate.common.jdbc.EventuateCommonJdbcOperations;
 import io.eventuate.common.jdbc.EventuateJdbcStatementExecutor;
 import io.eventuate.common.jdbc.EventuateTransactionTemplate;
+import io.eventuate.common.jdbc.sqldialect.SqlDialectSelector;
 import io.eventuate.javaclient.jdbc.EventuateJdbcAccess;
 import io.eventuate.common.jdbc.EventuateSchema;
 import io.eventuate.javaclient.commonimpl.crud.AggregateCrud;
 import io.eventuate.javaclient.commonimpl.crud.adapters.SyncToAsyncAggregateCrudAdapter;
 import io.eventuate.local.java.crud.EventuateLocalAggregateCrud;
 import io.eventuate.local.java.crud.EventuateLocalJdbcAccess;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
-
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Instance;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.inject.Singleton;
-import javax.sql.DataSource;
+import java.util.Optional;
 
 @Singleton
 public class EventuateLocalCrudConfiguration {
@@ -26,12 +22,19 @@ public class EventuateLocalCrudConfiguration {
                                                  EventuateTransactionTemplate eventuateTransactionTemplate,
                                                  EventuateJdbcStatementExecutor eventuateJdbcStatementExecutor,
                                                  EventuateCommonJdbcOperations eventuateCommonJdbcOperations,
-                                                 EventuateSchema eventuateSchema) {
-    return new EventuateLocalJdbcAccess(idGenerator, eventuateTransactionTemplate, eventuateJdbcStatementExecutor, eventuateCommonJdbcOperations, eventuateSchema);
+                                                 EventuateSchema eventuateSchema,
+                                                 SqlDialectSelector sqlDialectSelector,
+                                                 @ConfigProperty(name = "eventuateDatabase") String dbName) {
+    return new EventuateLocalJdbcAccess(idGenerator,
+            eventuateTransactionTemplate,
+            eventuateJdbcStatementExecutor,
+            eventuateCommonJdbcOperations,
+            sqlDialectSelector.getDialect(dbName, Optional.empty()),
+            eventuateSchema);
   }
 
   @Singleton
-  public EventuateLocalAggregateCrud eventuateLocalAggregateCrud(TransactionTemplate transactionTemplate,
+  public EventuateLocalAggregateCrud eventuateLocalAggregateCrud(EventuateTransactionTemplate transactionTemplate,
                                                                  EventuateJdbcAccess eventuateJdbcAccess) {
     return new EventuateLocalAggregateCrud(transactionTemplate, eventuateJdbcAccess);
   }
@@ -39,16 +42,5 @@ public class EventuateLocalCrudConfiguration {
   @Singleton
   public AggregateCrud asyncAggregateCrud(io.eventuate.javaclient.commonimpl.crud.sync.AggregateCrud aggregateCrud) {
     return new SyncToAsyncAggregateCrudAdapter(aggregateCrud);
-  }
-
-  @Singleton
-  public TransactionTemplate transactionTemplate(PlatformTransactionManager platformTransactionManager) {
-    return new TransactionTemplate(platformTransactionManager);
-  }
-
-  @Singleton
-  @Default
-  public PlatformTransactionManager platformTransactionManager(Instance<DataSource> dataSource) {
-    return new DataSourceTransactionManager(dataSource.get());
   }
 }

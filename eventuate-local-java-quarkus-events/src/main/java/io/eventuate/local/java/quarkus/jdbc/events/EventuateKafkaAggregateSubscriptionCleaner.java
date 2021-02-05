@@ -1,5 +1,6 @@
 package io.eventuate.local.java.quarkus.jdbc.events;
 
+import io.eventuate.local.java.events.EventuateKafkaAggregateSubscriptions;
 import io.quarkus.runtime.Startup;
 
 import javax.annotation.PreDestroy;
@@ -10,11 +11,11 @@ import javax.inject.Inject;
 public class EventuateKafkaAggregateSubscriptionCleaner {
 
   @Inject
-  Instance<EventuateKafkaAggregateSubscriptionCleaner> eventuateKafkaAggregateSubscriptionCleaners;
+  Instance<EventuateKafkaAggregateSubscriptions> eventuateKafkaAggregateSubscriptionCleaners;
 
   @PreDestroy
   public void clean() {
-    eventuateKafkaAggregateSubscriptionCleaners.select().forEach(EventuateKafkaAggregateSubscriptionCleaner::clean);
+    eventuateKafkaAggregateSubscriptionCleaners.stream().forEach(EventuateKafkaAggregateSubscriptions::cleanUp);
   }
 
 }
