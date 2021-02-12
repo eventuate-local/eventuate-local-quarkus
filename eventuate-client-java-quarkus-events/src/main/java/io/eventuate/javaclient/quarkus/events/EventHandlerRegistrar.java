@@ -9,8 +9,10 @@ import org.springframework.beans.BeansException;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Startup
+@Singleton
 public class EventHandlerRegistrar {
 
   @Inject

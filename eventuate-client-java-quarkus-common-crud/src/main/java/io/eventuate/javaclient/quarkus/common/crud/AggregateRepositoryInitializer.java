@@ -7,8 +7,10 @@ import io.quarkus.runtime.Startup;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 @Startup
+@Singleton
 public class AggregateRepositoryInitializer {
 
   @Inject
