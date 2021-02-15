@@ -36,11 +36,11 @@ public class EventuateCommonCrudConfiguration {
   public @Named("EventuateAggregateStoreCrud") EventuateAggregateStoreCrud eventuateAggregateStoreCrud(Instance<CompositeMissingApplyEventMethodStrategy> missingApplyEventMethodStrategies,
                                                          Instance<AggregateCrud> aggregateCrud,
                                                          SnapshotManager snapshotManager,
-                                                         EventuateEventSchemaManager eventuateEventSchemaManager) {
+                                                         Instance<EventuateEventSchemaManager> eventuateEventSchemaManager) {
     return new EventuateAggregateStoreCrudImpl(aggregateCrud.get(),
             snapshotManager,
             missingApplyEventMethodStrategies.get().toMissingApplyEventMethodStrategy(),
-            eventuateEventSchemaManager
+            eventuateEventSchemaManager.get()
     );
   }
 

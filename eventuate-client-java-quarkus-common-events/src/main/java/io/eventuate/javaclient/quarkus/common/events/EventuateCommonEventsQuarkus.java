@@ -15,13 +15,13 @@ public class EventuateCommonEventsQuarkus {
 
   @Singleton
   public @Named("EventuateAggregateStoreEvents") EventuateAggregateStoreEvents eventuateAggregateStoreEvents(Instance<AggregateEvents> aggregateEvents,
-                                                                                                             EventuateEventSchemaManager eventuateEventSchemaManager,
+                                                                                                             Instance<EventuateEventSchemaManager> eventuateEventSchemaManager,
                                                                                                              Instance<SerializedEventDeserializer> serializedEventDeserializer) {
     if (serializedEventDeserializer.stream().count() > 1)
       throw new RuntimeException("Expected no more than 1 SerializedEventDeserializer");
 
     EventuateAggregateStoreEventsImpl eventuateAggregateStoreEvents =
-            new EventuateAggregateStoreEventsImpl(aggregateEvents.get(), eventuateEventSchemaManager);
+            new EventuateAggregateStoreEventsImpl(aggregateEvents.get(), eventuateEventSchemaManager.get());
 
     serializedEventDeserializer.stream().findFirst().ifPresent(eventuateAggregateStoreEvents::setSerializedEventDeserializer);
 
