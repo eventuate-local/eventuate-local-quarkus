@@ -37,14 +37,16 @@ allprojects {
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
     }
 
-    dependencies {
-        compile 'io.quarkus:quarkus-core'
-        compile 'io.quarkus.arc:arc'
-        compile 'io.quarkus:quarkus-arc-deployment'
+    if (!project.name.endsWith("-bom")) {
 
-        implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+      dependencies {
+          compile 'io.quarkus:quarkus-core'
+          compile 'io.quarkus.arc:arc'
+          compile 'io.quarkus:quarkus-arc-deployment'
+
+          implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+      }
     }
-
 }
 
 task aggregatedTestReport(type: TestReport) {
