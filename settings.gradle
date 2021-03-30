@@ -17,4 +17,4 @@ include "eventuate-local-java-quarkus-jdbc-snapshot-tests"
 include "eventuate-local-java-quarkus-jdbc-metadata-tests"
 include "eventuate-local-quarkus-bom"
 
-rootProject.name = 'eventuate-local-java'
+rootProject.name = 'eventuate-local-quarkus'
