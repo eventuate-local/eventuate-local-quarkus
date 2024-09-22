@@ -5,9 +5,9 @@ plugins {
 
 
 dependencies {
-    compile project(":eventuate-client-java-tests-example-quarkus")
+    api project(":eventuate-client-java-tests-example-quarkus")
 
-    compile "io.eventuate.local.java:eventuate-client-java-tests-common:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java-tests-common:$eventuateLocalVersion"
 
-    compile 'io.quarkus:quarkus-junit5'
+    api 'io.quarkus:quarkus-junit5'
 }

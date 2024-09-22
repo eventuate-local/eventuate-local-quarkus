@@ -13,7 +13,6 @@ buildscript {
 }
 
 plugins {
-    id "com.github.hierynomus.license" version "0.12.1"
 }
 
 apply plugin: 'docker-compose'
@@ -25,9 +24,6 @@ allprojects {
 
 projects {
 
-    license {
-        header rootProject.file('src/license/HEADER')
-    }
 }
 
 allprojects {
@@ -43,9 +39,9 @@ allprojects {
     if (!project.name.endsWith("-bom")) {
 
       dependencies {
-          compile 'io.quarkus:quarkus-core'
-          compile 'io.quarkus.arc:arc'
-          compile 'io.quarkus:quarkus-arc-deployment'
+          api 'io.quarkus:quarkus-core'
+          api 'io.quarkus.arc:arc'
+          api 'io.quarkus:quarkus-arc-deployment'
 
           implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
       }
@@ -86,18 +82,18 @@ dockerCompose {
     mysql {
         projectName = null
         useComposeFiles = ["docker-compose-mysql.yml"]
-        removeContainers = project.ext.removeContainers
+        removeContainers = Boolean.valueOf(project.ext.removeContainers)
     }
 
     mssql {
         projectName = null
         useComposeFiles = ["docker-compose-mssql.yml"]
-        removeContainers = project.ext.removeContainers
+        removeContainers = Boolean.valueOf(project.ext.removeContainers)
     }
 
     postgres {
         projectName = null
         useComposeFiles = ["docker-compose-postgres.yml"]
-        removeContainers = project.ext.removeContainers
+        removeContainers = Boolean.valueOf(project.ext.removeContainers)
     }
 }

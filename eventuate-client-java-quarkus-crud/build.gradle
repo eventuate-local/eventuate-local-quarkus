@@ -5,7 +5,7 @@ plugins {
 
 
 dependencies {
-    compile "io.eventuate.local.java:eventuate-client-java:$eventuateLocalVersion"
-    compile "io.eventuate.local.java:eventuate-client-java-event-handling:$eventuateLocalVersion"
-    compile "io.eventuate.local.java:eventuate-client-java-event-dispatching:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java-event-handling:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java-event-dispatching:$eventuateLocalVersion"
 }

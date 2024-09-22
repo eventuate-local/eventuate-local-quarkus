@@ -6,11 +6,11 @@ plugins {
 
 
 dependencies {
-    compile "io.eventuate.local.java:eventuate-local-java-events:$eventuateLocalVersion"
-    compile "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-local-java-events:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
 
-    compile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-common:$eventuateMessagingKafkaQuarkusVersion"
-    compile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-consumer:$eventuateMessagingKafkaQuarkusVersion"
+    api "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-common:$eventuateMessagingKafkaQuarkusVersion"
+    api "io.eventuate.messaging.kafka:eventuate-messaging-kafka-quarkus-consumer:$eventuateMessagingKafkaQuarkusVersion"
 
-    compile project(":eventuate-client-java-quarkus-common-events")
+    api project(":eventuate-client-java-quarkus-common-events")
 }

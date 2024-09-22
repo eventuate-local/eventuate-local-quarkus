@@ -5,8 +5,8 @@ plugins {
 
 
 dependencies {
-    compile project(":eventuate-local-java-quarkus-jdbc")
-    compile project(":eventuate-client-java-tests-common-quarkus")
+    api project(":eventuate-local-java-quarkus-jdbc")
+    api project(":eventuate-client-java-tests-common-quarkus")
 
-    compile "io.eventuate.local.java:eventuate-local-java-jdbc-tests-common:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-local-java-jdbc-tests-common:$eventuateLocalVersion"
 }

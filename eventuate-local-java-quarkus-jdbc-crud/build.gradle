@@ -5,11 +5,11 @@ plugins {
 
 
 dependencies {
-    compile project(":eventuate-client-java-quarkus-common-crud")
+    api project(":eventuate-client-java-quarkus-common-crud")
 
-    compile "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
-    compile "io.eventuate.local.java:eventuate-local-java-crud:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-local-java-common:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-local-java-crud:$eventuateLocalVersion"
 
-    compile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
-    compile "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
+    api "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+    api "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
 }

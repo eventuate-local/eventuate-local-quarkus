@@ -4,17 +4,17 @@ plugins {
 }
 
 dependencies {
-    compile project(":eventuate-client-java-quarkus-common")
-    compile project(":eventuate-client-java-quarkus")
+    api project(":eventuate-client-java-quarkus-common")
+    api project(":eventuate-client-java-quarkus")
 
-    compile "io.eventuate.local.java:eventuate-client-java-jdbc:$eventuateLocalVersion"
-    compile "io.eventuate.local.java:eventuate-client-java-jdbc-common-tests:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java-jdbc:$eventuateLocalVersion"
+    api "io.eventuate.local.java:eventuate-client-java-jdbc-common-tests:$eventuateLocalVersion"
 
-    compile "io.eventuate.common:eventuate-common-quarkus-in-memory-database:$eventuateCommonQuarkusVersion"
-    compile "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
-    compile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+    api "io.eventuate.common:eventuate-common-quarkus-in-memory-database:$eventuateCommonQuarkusVersion"
+    api "io.eventuate.common:eventuate-common-quarkus-id:$eventuateCommonQuarkusVersion"
+    api "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
 
-    testCompile 'io.quarkus:quarkus-junit5'
+    testImplementation 'io.quarkus:quarkus-junit5'
 }
 
 test {

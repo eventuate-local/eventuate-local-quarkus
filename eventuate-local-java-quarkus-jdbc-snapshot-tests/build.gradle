@@ -8,13 +8,13 @@ plugins {
 
 
 dependencies {
-    testCompile project(":eventuate-local-java-quarkus-jdbc-tests-common")
-    testCompile "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
-    testCompile "io.eventuate.common:eventuate-common-quarkus-jdbc-test-configuration:$eventuateCommonQuarkusVersion"
-    testCompile 'io.quarkus:quarkus-jdbc-mysql'
-    testCompile 'io.quarkus:quarkus-jdbc-mssql'
-    testCompile 'io.quarkus:quarkus-jdbc-postgresql'
-    testCompile 'io.quarkus:quarkus-agroal'
+    testImplementation project(":eventuate-local-java-quarkus-jdbc-tests-common")
+    testImplementation "io.eventuate.common:eventuate-common-quarkus-jdbc:$eventuateCommonQuarkusVersion"
+    testImplementation "io.eventuate.common:eventuate-common-quarkus-jdbc-test-configuration:$eventuateCommonQuarkusVersion"
+    testImplementation 'io.quarkus:quarkus-jdbc-mysql'
+    testImplementation 'io.quarkus:quarkus-jdbc-mssql'
+    testImplementation 'io.quarkus:quarkus-jdbc-postgresql'
+    testImplementation 'io.quarkus:quarkus-agroal'
 }
 
 test {

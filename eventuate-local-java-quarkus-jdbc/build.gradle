@@ -1,6 +1,6 @@
 
 dependencies {
-    compile project (":eventuate-client-java-quarkus-common")
-    compile project (":eventuate-local-java-quarkus-jdbc-crud")
-    compile project (":eventuate-local-java-quarkus-events")
+    api project (":eventuate-client-java-quarkus-common")
+    api project (":eventuate-local-java-quarkus-jdbc-crud")
+    api project (":eventuate-local-java-quarkus-events")
 }

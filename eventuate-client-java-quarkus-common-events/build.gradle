@@ -5,6 +5,6 @@ plugins {
 
 
 dependencies {
-    compile project(":eventuate-client-java-quarkus-common-common")
-    compile "io.eventuate.local.java:eventuate-client-java-common-impl-events:$eventuateLocalVersion"
+    api project(":eventuate-client-java-quarkus-common-common")
+    api "io.eventuate.local.java:eventuate-client-java-common-impl-events:$eventuateLocalVersion"
 }
